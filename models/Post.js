@@ -11,6 +11,6 @@ const Post = sequelize.define('posts', {
   },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE
-});
+})
 
 module.exports = Post
