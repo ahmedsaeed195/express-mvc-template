@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
+require('dotenv').config()
 
-// Option 2: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('tutorial-project-express', 'root', '', {
-  host: 'localhost',
-  dialect: 'mysql'
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_CONNECTION
 });
 
 module.exports = sequelize

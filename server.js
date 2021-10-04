@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const Route = require('./routes/routes')
 var multer = require('multer')
 require('dotenv').config()
 var upload = multer()
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(upload.array())
