@@ -1,16 +1,15 @@
-const Post = require("../models/Post")
-const PostsSchema = require('../validators/PostsValidator')
-const PostsSchemaUpdate = require('../validators/PostsValidatorUpdate')
-class PostsController {
+const Users = require("../models/User")
+const UsersSchema = require('../validators/UsersValidator')
+const UsersSchemaUpdate = require('../validators/UsersValidatorUpdate')
+class UsersController {
 
     async index(req , res){
-        console.log('get all')
-        const posts = await Post.findAll()
-        return res.status(200).json(posts)
+        const users = await Users.findAll()
+        return res.status(200).json(users)
     }
 
     async show(req , res){
-        const post = await Post.findOne({ where : { id : req.params.id } })
+        const post = await Users.findOne({ where : { id : req.params.id } })
         if(post)
             return res.status(200).json(post)
         return res.status(400).json({
@@ -19,13 +18,13 @@ class PostsController {
     }
 
     async store(req , res){
-        const validation = PostsSchema.validate(req.body)
+        const validation = UsersSchema.validate(req.body)
         if(validation.error)
             return res.status(400).json(validation.error)
         try{
-            await Post.create(validation.value)
+            await Users.create(validation.value)
             return res.status(200).json({
-                message: `Post created`
+                message: `User created`
             })
         }
         catch(err){
@@ -36,7 +35,7 @@ class PostsController {
     }
 
     async update(req , res){
-        const validation = PostsSchemaUpdate.validate(req.body)
+        const validation = UsersSchemaUpdate.validate(req.body)
         if(validation.error)
             return res.status(400).json(validation.error)
             console.log(validation)
@@ -44,10 +43,10 @@ class PostsController {
             return res.status(400).json({
                 message: `No changes`
             })
-        const query = await Post.update(validation.value , { where : { id: req.params.id } })
+        const query = await Users.update(validation.value , { where : { id: req.params.id } })
         if(query[0] !== 0)
             return res.status(200).json({
-                message: `Post updated successfully`
+                message: `User updated successfully`
             })
         return res.status(400).json({
             message: `Not found`
@@ -56,10 +55,10 @@ class PostsController {
 
     async delete(req , res){
         const id = req.params.id
-        const query = await Post.destroy({ where : { id : id } })
+        const query = await Users.destroy({ where : { id : id } })
         if(query)
             return res.status(200).json({
-                message: `Post deleted successfully`
+                message: `User deleted successfully`
             })
         return res.status(400).json({
             message: `Not found`
@@ -68,4 +67,4 @@ class PostsController {
 
 }
 
-module.exports = new PostsController
+module.exports = new UsersController

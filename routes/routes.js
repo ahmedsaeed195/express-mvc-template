@@ -1,18 +1,25 @@
 const express = require('express')
-const PostsController = require('../controllers/PostsController')
+
+const PostsRouter = require('./postsRouter')
+const UsersRouter = require('./usersRouter')
+
 const Route = express.Router()
+
+// Default Route
+
+Route.get('',(req,res) => {
+    res.json({
+        message: 'Connection established'
+    })
+})
 
 // Posts Routes
 
-Route.get('/posts' , PostsController.index)
+Route.use('/posts', PostsRouter)
 
-Route.post('/posts' , PostsController.store)
+// Users Routes
 
-Route.get('/posts/:id' , PostsController.show)
-
-Route.put('/posts/:id' , PostsController.update)
-
-Route.delete('/posts/:id' , PostsController.delete)
+Route.use('/users', UsersRouter)
 
 // Comments Routes
 

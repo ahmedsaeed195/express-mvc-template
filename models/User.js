@@ -1,19 +1,22 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database')
 
-const Post = sequelize.define('posts', {
+const Users = sequelize.define('users', {
   // Model attributes are defined here
-  title: {
+  first_name: {
     type: DataTypes.STRING
   },
-  description: {
+  last_name: {
     type: DataTypes.STRING
   },
-  user_id: {
-    type: DataTypes.INTEGER
+  email: {
+    type: DataTypes.STRING
+  },
+  password: {
+    type: DataTypes.STRING
   },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE
 })
 
-module.exports = Post
+module.exports = Users
