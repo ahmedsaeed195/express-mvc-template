@@ -1,15 +1,18 @@
 const PostsController = require('../controllers/PostsController')
+const PostsValidatorUpdate = require('../validators/PostsValidatorUpdate')
+const PostsValidator = require('../validators/PostsValidator')
+
 const express = require('express')
 
 const PostsRoute = express.Router()
 
 PostsRoute.get('/' , PostsController.index)
 
-PostsRoute.post('/' , PostsController.store)
-
 PostsRoute.get('/:id' , PostsController.show)
 
-PostsRoute.put('/:id' , PostsController.update)
+PostsRoute.post('/', PostsValidator , PostsController.store)
+
+PostsRoute.put('/:id',PostsValidatorUpdate, PostsController.update)
 
 PostsRoute.delete('/:id' , PostsController.delete)
 

@@ -18,11 +18,9 @@ class UsersController {
     }
 
     async store(req , res){
-        const validation = UsersSchema.validate(req.body)
-        if(validation.error)
-            return res.status(400).json(validation.error)
         try{
-            await Users.create(validation.value)
+            const data = (Object.keys(req.query).length === 0) ? req.body : req.query
+            await Users.create(data)
             return res.status(200).json({
                 message: `User created`
             })
@@ -35,15 +33,12 @@ class UsersController {
     }
 
     async update(req , res){
-        const validation = UsersSchemaUpdate.validate(req.body)
-        if(validation.error)
-            return res.status(400).json(validation.error)
-            console.log(validation)
-        if(Object.keys(validation.value).length === 0)
+        if(Object.keys(req.body).length === 0 && Object.keys(req.query).length === 0)
             return res.status(400).json({
                 message: `No changes`
             })
-        const query = await Users.update(validation.value , { where : { id: req.params.id } })
+        const data = (Object.keys(req.query).length === 0) ? req.body : req.query
+        const query = await Users.update(data, { where : { id: req.params.id } })
         if(query[0] !== 0)
             return res.status(200).json({
                 message: `User updated successfully`
