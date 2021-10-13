@@ -1,6 +1,6 @@
 const PostsController = require('../controllers/PostsController')
-const PostsValidatorUpdate = require('../validators/PostsValidatorUpdate')
-const PostsValidator = require('../validators/PostsValidator')
+const PostsValidatorUpdate = require('../middleware/validators/PostsValidatorUpdate')
+const PostsValidator = require('../middleware/validators/PostsValidator')
 
 const express = require('express')
 

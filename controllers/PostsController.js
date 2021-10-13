@@ -2,7 +2,6 @@ const Post = require("../models/Post")
 class PostsController {
 
     async index(req, res) {
-        console.log('get all')
         const posts = await Post.findAll()
         return res.status(200).json(posts)
     }
@@ -25,7 +24,6 @@ class PostsController {
             })
         }
         catch (err) {
-            console.log(err)
             return res.status(400).json({
                 message: `Invalid Request`
             })
@@ -33,7 +31,6 @@ class PostsController {
     }
 
     async update(req, res) {
-        console.log(Object.keys(req.query))
         if (Object.keys(req.body).length === 0 && Object.keys(req.query).length === 0)
             return res.status(400).json({
                 message: `No changes`
